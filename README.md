@@ -1,4 +1,4 @@
-# 🧠 IssueMindAI
+# IssueMindAI
 
 > NLP tabanlı, Kafka destekli, modül bazlı iş analizi ve karar destek platformu (NLP + Kafka + React + Spring Boot)
 
@@ -11,7 +11,7 @@
 - Raporları JasperReports ile sunmak,
 - Kafka üzerinden mikroservis mimarisi ile haberleşmek.
 
-## 🔧 Teknolojiler
+## Teknolojiler
 - Spring Boot (Java 17)
 - Apache Kafka
 - Docker + Docker Compose
@@ -29,7 +29,7 @@
 | NLP        | Java (OpenNLP) veya Python (spaCy) | Metin analizi (CRUD, bug, tekrar vs.)         |
 
 
-## 📦 Mikroservisler
+## Mikroservisler
 | Servis Adı                | Açıklama |
 |---------------------------|----------|
 | `issue-producer-service`  | Haftalık iş verisini Kafka'ya yollar |
@@ -58,13 +58,13 @@
 | `application.yml`    | Her servisin kendi portu ve Kafka ayarları          |
 
 
-## 🚀 Docker ile Çalıştırmak
+##  Docker ile Çalıştırmak
 ```bash
 docker-compose up --build
 ```
 * Kafka, Redis, Spring Boot servisleri ve frontend tek komutla ayağa kalkacak
 
-## 📁 Proje Yapısı
+##  Proje Yapısı
 
 ```
 IssueMindAI/
@@ -137,32 +137,32 @@ IssueMindAI/
 
 ## Coding Flow
 
-### 🔄 Kafka + issue-producer-service
+### Kafka + issue-producer-service
 Spring Boot uygulaması
 REST API üzerinden gelen işleri issue-events Kafka topic’ine gönder
 
-### 🧠 nlp-processor-service
+###  nlp-processor-service
 - Kafka consumer
 - Mesaj al, NLP ile analiz et (CRUD mi? Tekrar mı? vs.)
 - Sonucu analysis-results topic’ine yolla
 
-### 💡 insight-generator-service
+### insight-generator-service
 - analysis-results dinle
 - Modül bazlı skor hesapla
 - Sistem önerisi üret (örn. "Refactor önerilir")
 - Sonucu insight-results topic’ine yolla
 
-### 📊 dashboard-backend + Redis
+### dashboard-backend + Redis
 - Kafka’dan veriyi al
 - Redis’e cache'le
 - React frontend’e REST API veya WebSocket ile sun
 
-### 🖥️ frontend (ReactJS)
+### frontend (ReactJS)
 - Modül filtreleme
 - Grafiklerle veri gösterimi (line chart, bar chart, pie)
 - Öneri kartları (AI insights)
 
-### 🧾 jasperreports-service
+### jasperreports-service
 - PDF rapor isteği REST üzerinden alınır
 - Jasper template kullanılarak çıktı oluşturulur
 
