@@ -1,0 +1,21 @@
+
+# Java
+target/
+*.log
+*.class
+
+# Maven/Gradle
+.mvn/
+.gradle/
+build/
+
+# Node
+node_modules/
+dist/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store

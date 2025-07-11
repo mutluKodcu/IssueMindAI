@@ -1,0 +1,66 @@
+IssueMindAI/
+├── README.md
+├── .gitignore
+├── docker-compose.yml
+├── shared/                                 # Ortak sınıf ve konfigürasyonlar
+│
+├── frontend/                               # ReactJS arayüz projesi
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── services/
+│       └── App.jsx
+│
+└── services/
+    ├── issue-producer-service/             # Kafka Producer mikroservisi
+    │   ├── pom.xml
+    │   └── src/
+    │       ├── main/
+    │       │   ├── java/com/uyg5/dmtbkts/issueproducerservice/
+    │       │   │   ├── IssueProducerServiceApplication.java
+    │       │   │   ├── controller/IssueController.java
+    │       │   │   ├── kafka/IssueProducer.java
+    │       │   │   ├── model/Issue.java
+    │       │   │   └── config/             # (gerekirse Kafka config)
+    │       │   └── resources/
+    │       │       └── application.yml
+    │
+    ├── nlp-processor-service/              # Kafka Consumer + NLP
+    │   ├── pom.xml
+    │   └── src/main/java/com/uyg5/dmtbkts/nlpprocessorservice/
+    │       ├── NLPProcessorApplication.java
+    │       ├── consumer/NLPConsumer.java
+    │       ├── service/NLPService.java
+    │       ├── model/Issue.java
+    │       └── config/
+    │       └── resources/application.yml
+    │
+    ├── insight-generator-service/          # NLP sonucu analiz ve öneri üretimi
+    │   ├── pom.xml
+    │   └── src/main/java/com/uyg5/dmtbkts/insightgeneratorservice/
+    │       ├── InsightGeneratorApplication.java
+    │       ├── consumer/InsightConsumer.java
+    │       ├── service/InsightService.java
+    │       ├── model/InsightResult.java
+    │       └── config/
+    │       └── resources/application.yml
+    │
+    ├── dashboard-backend/                  # Redis & frontend için API servisi
+    │   ├── pom.xml
+    │   └── src/main/java/com/uyg5/dmtbkts/dashboardbackend/
+    │       ├── DashboardBackendApplication.java
+    │       ├── controller/DashboardController.java
+    │       ├── service/DashboardService.java
+    │       └── config/
+    │       └── resources/application.yml
+    │
+    └── jasperreports-service/              # PDF rapor üretimi
+        ├── pom.xml
+        └── src/main/java/com/uyg5/dmtbkts/jasperreportsservice/
+            ├── JasperReportsApplication.java
+            ├── controller/ReportController.java
+            ├── service/ReportService.java
+            ├── resources/
+            │   ├── application.yml
+            │   └── reports/                # .jrxml şablonları

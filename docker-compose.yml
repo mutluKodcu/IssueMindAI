@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_CREATE_TOPICS: "issue-events:1:1,analysis-results:1:1,insight-results:1:1"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  issue-producer-service:
+    build: ./services/issue-producer-service
+    depends_on:
+      - kafka
+
+  nlp-processor-service:
+    build: ./services/nlp-processor-service
+    depends_on:
+      - kafka
+
+  insight-generator-service:
+    build: ./services/insight-generator-service
+    depends_on:
+      - kafka
+      - redis
+
+  dashboard-backend:
+    build: ./services/dashboard-backend
+    depends_on:
+      - kafka
+      - redis
+
+  jasperreports-service:
+    build: ./services/jasperreports-service
+    depends_on:
+      - redis
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
