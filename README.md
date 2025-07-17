@@ -127,14 +127,41 @@ IssueMindAI/
     │       └── resources/application.yml
     │
     └── jasperreports-service/              # PDF rapor üretimi
-        ├── pom.xml
-        └── src/main/java/com/uyg5/dmtbkts/jasperreportsservice/
-            ├── JasperReportsApplication.java
-            ├── controller/ReportController.java
-            ├── service/ReportService.java
-            ├── resources/
-            │   ├── application.yml
-            │   └── reports/                # .jrxml şablonları
+    |   ├── pom.xml
+    |  └── src/main/java/com/uyg5/dmtbkts/jasperreportsservice/
+    |       ├── JasperReportsApplication.java
+    |       ├── controller/ReportController.java
+    |       ├── service/ReportService.java
+    |       ├── resources/
+    |       │   ├── application.yml
+    |       │   └── reports/                # .jrxml şablonları
+    └── feedback-collector-service/   
+    |   ├── pom.xml       
+    |   └── src/              # Kullanıcıdan gelen feedback feedback-collector-service ile Kafka’ya gider.
+    |       └── main/         # Dashboard backend Redis’ten veriyi çeker, kullanıcıya gösterir
+    |           ├── java/com/uyg5/dmtbkts/feedbackcollectorservice/
+    |           │   ├── FeedbackCollectorApplication.java
+    |           │   ├── controller/FeedbackController.java
+    |           │   ├── model/Feedback.java
+    |           │   ├── service/FeedbackService.java
+    |           │   └── config/KafkaProducerConfig.java
+    |            └── resources/
+    |                └── application.yml
+    └── feedback-analyzer-service/      
+        ├── pom.xml 
+        └── src/                  # feedback-events topic'ini dinler, Redis bağlantısı kurar ve gelen feedbackleri Redis’e yazar
+            └── main/
+                ├── java/com/uyg5/dmtbkts/feedbackanalyzerservice/
+                │   ├── FeedbackAnalyzerApplication.java
+                │   ├── consumer/FeedbackConsumer.java
+                │   ├── model/FeedbackAnalysis.java
+                │   ├── service/FeedbackService.java
+                │   └── config/
+                │       ├── KafkaConsumerConfig.java
+                │       └── RedisConfig.java
+                └── resources/
+                    └── application.yml
+
 ```
 
 ## Coding Flow
