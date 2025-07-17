@@ -195,7 +195,21 @@ REST API üzerinden gelen işleri issue-events Kafka topic’ine gönder
 - PDF rapor isteği REST üzerinden alınır
 - Jasper template kullanılarak çıktı oluşturulur
 
+### feedback-collector-service (Kullanıcı Geri Bildirimleri)
+- Kullanıcıların dashboard veya raporlar üzerinden geri bildirimleri toplar.
+- Gelen feedback’i Kafka üzerinden ilgili topic’e gönderir.
+- Geri bildirimler sistemin iyileştirilmesinde kullanılır.
 
+| Servis                     | Girdi / Topic              | Çıktı / Topic        | Temel Görev                                               |
+| -------------------------- | -------------------------- | -------------------- | --------------------------------------------------------- |
+| issue-producer-service     | REST API (iş kayıtları)    | issue-events         | İş kayıtlarını Kafka’ya üretir                            |
+| nlp-processor-service      | issue-events               | analysis-results     | NLP ile metin analizi yapar                               |
+| insight-generator-service  | analysis-results           | insight-results      | Skor hesaplar, öneriler üretir                            |
+| dashboard-backend          | insight-results            | REST API / WebSocket | Veriyi Redis’e kaydeder, frontend’e sunar                 |
+| frontend                   | REST API / WebSocket       | -                    | Kullanıcıya grafiksel veri ve öneri sunar                 |
+| jasperreports-service      | REST API (rapor istekleri) | PDF çıktıları        | Raporları JasperReports ile üretir                        |
+| feedback-collector-service | REST API / Kafka           | feedback-topic       | Kullanıcı geri bildirimlerini toplar ve Kafka’ya gönderir |
+----------------------------------------------------------------------------------------------------------------------------------------------
 
 ##  Test
 * Kafka'daki issue-events topic'ine bu mesaj gider.
