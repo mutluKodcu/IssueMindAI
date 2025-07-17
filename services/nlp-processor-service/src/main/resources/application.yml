@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: nlp-processor-service
+
+  kafka:
+    bootstrap-servers: kafka:9092

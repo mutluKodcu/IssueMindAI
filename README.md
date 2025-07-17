@@ -35,7 +35,9 @@
 | `issue-producer-service`  | Haftalık iş verisini Kafka'ya yollar |
 | `nlp-processor-service`   | NLP ile metin analizi yapar |
 | `insight-generator-service` | NLP sonuçlarını yorumlayıp skor, tekrar, öneri üretir |
-| `dashboard-backend`       | Redis + REST API / WebSocket sunar. Verileri Redis’ten okuyup React frontend’e servis eder. |
+| `dashboard-backend`          | Redis + REST API / WebSocket sunar. Verileri Redis’ten okuyup React frontend’e servis eder. |
+| `feedback-collector-service` | feedback toplayan ve Kafka üzerinden diğer servislerle paylaşan mikroservistir |
+| `feedback-analyzer-service`  | #feedback-events topic'ini dinler, Redis bağlantısı kurar ve gelen feedbackleri Redis’e yazar |
 | `jasperreports-service`   | Raporları PDF olarak üretir |
 | `frontend`                | ReactJS dashboard: grafikler, modül skorları, öneriler |
 
