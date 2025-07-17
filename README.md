@@ -206,7 +206,7 @@ REST API üzerinden gelen işleri issue-events Kafka topic’ine gönder
 | nlp-processor-service      | issue-events               | analysis-results     | NLP ile metin analizi yapar                               |
 | insight-generator-service  | analysis-results           | insight-results      | Skor hesaplar, öneriler üretir                            |
 | dashboard-backend          | insight-results            | REST API / WebSocket | Veriyi Redis’e kaydeder, frontend’e sunar                 |
-| frontend                   | REST API / WebSocket       | -                    | Kullanıcıya grafiksel veri ve öneri sunar                 |
+| frontend                   | REST API                   | -                    | Kullanıcıya grafiksel veri ve öneri sunar                 |
 | jasperreports-service      | REST API (rapor istekleri) | PDF çıktıları        | Raporları JasperReports ile üretir                        |
 | feedback-collector-service | REST API / Kafka           | feedback-topic       | Kullanıcı geri bildirimlerini toplar ve Kafka’ya gönderir |
 ----------------------------------------------------------------------------------------------------------------------------------------------
