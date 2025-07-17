@@ -18,7 +18,7 @@
 - Redis
 - JasperReports
 - ReactJS + Recharts
-- NLP (Java veya Python tabanlı)
+- NLP (Java)
 
 | Katman     | Teknoloji                          | Açıklama                                      |
 | ---------- | -----------------------------------| --------------------------------------------- |
@@ -42,12 +42,14 @@
 | `frontend`                | ReactJS dashboard: grafikler, modül skorları, öneriler |
 
 ## Kafka Topic Yapısı
-| Topic Adı          | Açıklama            |
-| ------------------ | ------------------- |
-| `issue-events`     | Producer → NLP      |
-| `analysis-results` | NLP → Insight       |
-| `insight-results`  | Insight → Dashboard |
-
+| Topic Adı          | Açıklama                             |
+| ------------------ | ------------------------------------ |
+| `issue-events`     | Producer → NLP                       |
+| `analysis-results` | NLP → Insight                        |
+| `insight-results`  | Insight → Dashboard                  |
+| `feedback-topic`   | Feedback-Collector → Diğer servisler |
+| `feedback-events`  | Feedback-Analyzer → Redis            |
+------------------------------------------------------------
 
 ## Klasör/Yol
 | Klasör/Yol           | Açıklama                                                    |
@@ -173,18 +175,18 @@ REST API üzerinden gelen işleri issue-events Kafka topic’ine gönder
 ###  nlp-processor-service
 - Kafka consumer
 - Mesaj al, NLP ile analiz et (CRUD mi? Tekrar mı? vs.)
-- Sonucu analysis-results topic’ine yolla
+- Sonucu analysis-results topic’ine yollar
 
 ### insight-generator-service
 - analysis-results dinle
 - Modül bazlı skor hesapla
 - Sistem önerisi üret (örn. "Refactor önerilir")
-- Sonucu insight-results topic’ine yolla
+- Sonucu insight-results topic’ine r
 
 ### dashboard-backend + Redis
 - Kafka’dan veriyi al
 - Redis’e cache'le
-- React frontend’e REST API veya WebSocket ile sun
+- React frontend’e REST API sunar
 
 ### frontend (ReactJS)
 - Modül filtreleme
@@ -200,6 +202,8 @@ REST API üzerinden gelen işleri issue-events Kafka topic’ine gönder
 - Gelen feedback’i Kafka üzerinden ilgili topic’e gönderir.
 - Geri bildirimler sistemin iyileştirilmesinde kullanılır.
 
+## Servisler, Topicler ve Temel Görevleri
+
 | Servis                     | Girdi / Topic              | Çıktı / Topic        | Temel Görev                                               |
 | -------------------------- | -------------------------- | -------------------- | --------------------------------------------------------- |
 | issue-producer-service     | REST API (iş kayıtları)    | issue-events         | İş kayıtlarını Kafka’ya üretir                            |
@@ -209,7 +213,8 @@ REST API üzerinden gelen işleri issue-events Kafka topic’ine gönder
 | frontend                   | REST API                   | -                    | Kullanıcıya grafiksel veri ve öneri sunar                 |
 | jasperreports-service      | REST API (rapor istekleri) | PDF çıktıları        | Raporları JasperReports ile üretir                        |
 | feedback-collector-service | REST API / Kafka           | feedback-topic       | Kullanıcı geri bildirimlerini toplar ve Kafka’ya gönderir |
-----------------------------------------------------------------------------------------------------------------------------------------------
+| feedback-analyzer-service  | feedback-topic             | Redis                | Feedbackleri analiz edip Redis’e yazar                    |
+
 
 ##  Test
 * Kafka'daki issue-events topic'ine bu mesaj gider.

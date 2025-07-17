@@ -1,0 +1,58 @@
+@startuml
+' ===== Mikroservis Akış Diyagramı =====
+package "IssueMindAI Mikroservisleri" {
+  [issue-producer-service] --> [Kafka : issue-events]
+  [nlp-processor-service] --> [Kafka : analysis-results]
+  [insight-generator-service] --> [Kafka : insight-results]
+  [dashboard-backend] --> [Redis]
+  [dashboard-backend] --> [React Frontend]
+  [feedback-collector-service] --> [Kafka : feedback-topic]
+  [feedback-analyzer-service] --> [Redis]
+
+  [Kafka : issue-events] --> [nlp-processor-service]
+  [Kafka : analysis-results] --> [insight-generator-service]
+  [Kafka : insight-results] --> [dashboard-backend]
+  [Kafka : feedback-topic] --> [feedback-analyzer-service]
+}
+
+@enduml
+
+@startuml
+' ===== Kafka Mesaj Akış Diyagramı =====
+participant "issue-producer-service" as Producer
+participant "Kafka Topic: issue-events" as Topic1
+participant "nlp-processor-service" as NLP
+participant "Kafka Topic: analysis-results" as Topic2
+participant "insight-generator-service" as Insight
+participant "Kafka Topic: insight-results" as Topic3
+participant "dashboard-backend" as Dashboard
+participant "Redis Cache" as Redis
+participant "frontend (React)" as Frontend
+
+Producer -> Topic1 : Publish issue event
+Topic1 -> NLP : Consume issue event
+NLP -> Topic2 : Publish analysis result
+Topic2 -> Insight : Consume analysis result
+Insight -> Topic3 : Publish insight result
+Topic3 -> Dashboard : Consume insight result
+Dashboard -> Redis : Cache data
+Frontend -> Dashboard : REST API / WebSocket Request
+Dashboard -> Frontend : Return data
+
+@enduml
+
+@startuml
+' ===== Frontend-Backend İletişim Diyagramı =====
+actor "User" as User
+participant "React Frontend" as Frontend
+participant "Dashboard Backend (REST API)" as Backend
+participant "Redis Cache" as Redis
+
+User -> Frontend : Dashboard’a erişim
+Frontend -> Backend : Veri talebi (modül skorları, grafik verileri)
+Backend -> Redis : Cache’den veri oku
+Redis --> Backend : Veri dönüşü
+Backend --> Frontend : JSON veri yanıtı
+Frontend -> User : Grafik ve önerileri göster
+
+@enduml
