@@ -4,7 +4,7 @@ Bu belge, IssueMindAI projesi geliştirilirken kazanılan teknik bilgi ve deneyi
 
 ---
 
-## 🎓 1. Mikroservis Mimarisi Prensipleri
+## 1. Mikroservis Mimarisi Prensipleri
 
 - **Servis Ayrıştırması**: Sistem, farklı işlevleri yürüten mikroservislere bölünerek geliştirildi.
 - **Tek Sorumluluk İlkesi**: Her servis yalnızca bir görevi yerine getiriyor.
@@ -12,7 +12,7 @@ Bu belge, IssueMindAI projesi geliştirilirken kazanılan teknik bilgi ve deneyi
 
 ---
 
-## 📡 2. Servisler Arası İletişim Yöntemleri
+## 2. Servisler Arası İletişim Yöntemleri
 
 ### REST API
 - `dashboard-backend`, `jasperreports-service` ve `feedback-collector-service` gibi servisler React frontend'e REST API sağlar.
@@ -23,7 +23,7 @@ Bu belge, IssueMindAI projesi geliştirilirken kazanılan teknik bilgi ve deneyi
 
 ---
 
-## ⚙️ 3. Dağıtık Sistem Tasarımı
+## 3. Dağıtık Sistem Tasarımı
 
 - **Redis**: Gerçek zamanlı veri saklama ve hızlı erişim için kullanıldı.
 - **Kafka**: Yüksek hacimli mesaj trafiği yönetimi sağlandı.
@@ -32,7 +32,7 @@ Bu belge, IssueMindAI projesi geliştirilirken kazanılan teknik bilgi ve deneyi
 
 ---
 
-## 🔄 4. Veri ve Olay Akışı
+## 4. Veri ve Olay Akışı
 
 Örnek süreç:
 1. Kullanıcı issue oluşturur.
@@ -45,7 +45,7 @@ Bu süreç, event sourcing ve streaming temelli sistemleri kavrama açısından 
 
 ---
 
-## 🧠 5. Bileşen Entegrasyonları
+## 5. Bileşen Entegrasyonları
 
 - Kafka ile servisler arası loosely coupled yapı kuruldu.
 - Redis ile performans artırımı sağlandı.
@@ -53,7 +53,7 @@ Bu süreç, event sourcing ve streaming temelli sistemleri kavrama açısından 
 
 ---
 
-## 🧰 6. Kullanılan Teknolojiler ve Öğrenilenler
+## 6. Kullanılan Teknolojiler ve Öğrenilenler
 
 | Katman           | Teknoloji         | Kazanım |
 |------------------|------------------|---------|
@@ -65,7 +65,7 @@ Bu süreç, event sourcing ve streaming temelli sistemleri kavrama açısından 
 
 ---
 
-## 🧩 7. Yazılım Mimarisini Parçalama Becerisi
+## 7. Yazılım Mimarisini Parçalama Becerisi
 
 - Gerçek bir uygulama nasıl alt parçalara ayrılır?
 - Her parça nasıl bağımsız çalışabilir?
@@ -75,7 +75,7 @@ Bu yapı sayesinde büyük sistemlerin yönetilebilir hale gelmesi sağlanır.
 
 ---
 
-## 📈 8. Sonuç
+## 8. Sonuç
 
 Bu proje sayesinde aşağıdaki konularda pratik bilgi edinildi:
 
